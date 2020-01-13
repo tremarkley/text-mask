@@ -7,6 +7,7 @@ import {isNil} from '../../core/src/utilities'
 export default class MaskedInput extends React.PureComponent {
   constructor(...args) {
     super(...args)
+    this.inputElementLastUpdatedValue = undefined
 
     this.setRef = this.setRef.bind(this)
     this.onBlur = this.onBlur.bind(this)
@@ -50,7 +51,8 @@ export default class MaskedInput extends React.PureComponent {
         isPipeChanged
 
     // Сalculate that value was changed
-    const isValueChanged = value !== this.inputElement.value
+    const isValueChanged = value !== this.inputElementLastUpdatedValue
+    this.inputElementLastUpdatedValue = value
 
     // Check value and settings to prevent duplicating update() call
     if (isValueChanged || isSettingChanged) {
